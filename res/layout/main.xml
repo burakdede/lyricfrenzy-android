@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:myapp="http://schemas.android.com/apk/com.lyricsfrenzy.android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/back"
+    >
+
+	<TabHost
+			android:id="@+id/tabHost"
+			android:layout_height="wrap_content"
+			android:layout_width="fill_parent">
+		
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+			
+			
+			<TabWidget
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:id="@android:id/tabs"/>
+				
+			<FrameLayout
+				android:id="@android:id/tabcontent"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent">
+			
+				<LinearLayout
+					android:id="@+id/lyrics"
+					android:orientation="vertical"
+					android:layout_width="fill_parent"
+					android:layout_height="fill_parent"
+					android:padding="3dip">
+					
+						<!--  this is to steal auto focus from the editext field just dummy view -->
+						<LinearLayout 
+							android:id="@+id/stealFocus"
+							android:focusable="true"
+							android:focusableInTouchMode="true"
+							android:layout_width="0px"
+							android:layout_height="10dip"
+						/>
+						
+						<EditText
+							android:id="@+id/searchBar"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:singleLine="false" 
+							android:lines="6"
+							android:gravity="top"
+							android:hint="Place your lyrics here to search..."
+						/>		
+
+						<Button
+							android:id="@+id/searchButton"
+							android:layout_width="fill_parent"	
+							android:layout_height="wrap_content"
+							android:text="Search Lyrics"
+							/>
+									
+				</LinearLayout>
+				
+				<LinearLayout
+					android:id="@+id/charts"
+					android:layout_height="fill_parent"
+					android:layout_width="fill_parent"
+					android:orientation="vertical">
+					
+						<Spinner
+							android:id="@+id/countrySelector"
+							android:layout_height="wrap_content"
+							android:layout_width="fill_parent"
+							android:prompt="@string/country_spinner"
+							android:padding="5dip"/>
+							
+						<TextView
+							android:id="@+id/chartBar"
+							android:layout_height="wrap_content"
+							android:layout_width="fill_parent"
+							android:text="Top 30 Artist"
+							android:textStyle="bold"/>
+						
+							
+						<ListView
+							android:id="@+id/chartList"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"/>
+				</LinearLayout>
+				
+				<LinearLayout
+					android:id="@+id/topLyrics"
+					android:layout_height="fill_parent"
+					android:layout_width="fill_parent"
+					android:orientation="vertical">
+					
+						<Spinner
+							android:id="@+id/songCountrySelector"
+							android:layout_height="wrap_content"
+							android:layout_width="fill_parent"
+							android:prompt="@string/country_spinner"
+							android:padding="5dip"/>
+							
+						<TextView
+							android:id="@+id/songBar"
+							android:layout_height="wrap_content"
+							android:layout_width="fill_parent"
+							android:text="Top 30 Song Lyrics"
+							android:textStyle="bold"/>
+						
+							
+						<ListView
+							android:id="@+id/songList"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"/>
+					
+				</LinearLayout>
+			</FrameLayout>
+		</LinearLayout>
+	</TabHost>
+	
+	<com.admob.android.ads.AdView
+		android:id="@+id/ad"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		myapp:backgroundColor="#000000"
+		myapp:primaryTextColor="#FFFFFF"
+		myapp:secondaryTextColor="#CCCCCC"
+		/>	
+		
+</LinearLayout>

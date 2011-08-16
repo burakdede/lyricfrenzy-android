@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:myapp="http://schemas.android.com/apk/com.lyricsfrenzy.android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/back">
+	
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+		
+	  <ImageView
+	  	android:id="@+id/albumImage"
+	  	android:layout_height="wrap_content"
+	  	android:layout_width="wrap_content"
+	  	android:minHeight="120dip"
+	  	android:padding="5dip"
+	  	/>
+	  	
+	  	
+	  <TextView
+	  	android:id="@+id/trackInfo"
+	  	android:layout_toRightOf="@+id/albumImage"
+	  	android:layout_height="wrap_content"
+	  	android:layout_width="wrap_content"
+	  	android:textStyle="bold"
+	  	android:paddingLeft="20dip"
+	  	android:paddingRight="15dip"
+	  	android:paddingTop="5dip"
+	  	/>
+	  	
+  
+  	<WebView 
+  		android:id="@+id/lyricview"
+  		android:layout_below="@+id/albumImage"
+  		android:layout_height="fill_parent"
+    	android:layout_width="fill_parent"
+    	android:paddingTop="4dip"
+    	/>
+	
+   <TableLayout
+	  		android:id="@+id/thumbs"
+	  		android:layout_width="wrap_content"
+	  		android:layout_height="wrap_content"
+	  		android:layout_below="@+id/trackInfo"
+	  		android:layout_above="@+id/lyricview"
+	  		android:layout_toRightOf="@+id/albumImage"
+	  		android:paddingLeft="20dip"
+	  		android:gravity="center_horizontal"
+	  		>
+	  		
+	  		<TableRow>
+	  			<ImageView
+	  				android:id="@+id/thumbs_up"
+	  				android:layout_width="wrap_content"
+	  				android:layout_height="wrap_content"
+	  				android:padding="5dip"
+	  				android:src="@drawable/thumbsup"/>
+	  			
+	  			<TextView
+	  				android:id="@+id/up_text"
+	  				android:layout_width="wrap_content"
+	  				android:padding="5dip"
+	  				android:textStyle="bold"
+	  				android:layout_height="wrap_content"/>
+	  				
+	  			<ImageView
+	  				android:id="@+id/thumbs_down"
+	  				android:layout_width="wrap_content"
+	  				android:layout_height="wrap_content"
+	  				android:padding="5dip"
+	  				android:src="@drawable/thumbsdown"/>
+	  			
+	  			<TextView
+	  				android:id="@+id/down_text"
+	  				android:layout_width="wrap_content"
+	  				android:padding="5dip"
+	  				android:textStyle="bold"
+	  				android:layout_height="wrap_content"/>
+	  					  			
+	  		</TableRow>
+	  		<TableRow>
+		  		 <Spinner
+					android:id="@+id/translate"
+					android:padding="5dip"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_span="3"
+					android:prompt="@string/translate_spinner"
+					android:drawSelectorOnTop="false"
+					/>
+	  		</TableRow>
+	  	<!-- 		<TableRow>
+	  		 	<Button
+					android:id="@+id/twitbutton"
+					android:padding="5dip"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_span="3"
+					android:background="@drawable/twitter"
+					/>
+	  		</TableRow>  -->
+	 </TableLayout>
+	
+	 
+	 <TextView
+	 	android:id="@+id/videoBar"
+	 	android:layout_height="wrap_content"
+	 	android:layout_width="wrap_content"
+	 	android:layout_below="@+id/lyricview"
+	 	android:text="YouTube Videos"
+	 	android:textStyle="bold"
+	 	/>
+	 	
+	 <Gallery
+	 	android:id="@+id/ytubeVideo"
+		android:layout_below="@+id/videoBar"
+	 	android:layout_width="fill_parent"
+	 	android:layout_height="wrap_content"
+	 	/>
+	 	
+	 <com.admob.android.ads.AdView
+		android:id="@+id/ad"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/ytubeVideo"
+		myapp:backgroundColor="#000000"
+		myapp:primaryTextColor="#FFFFFF"
+		myapp:secondaryTextColor="#CCCCCC"
+		/>
+</RelativeLayout>
+</ScrollView>

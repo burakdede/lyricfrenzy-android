@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: yusukey
+Build-Jdk: 1.6.0_22
+Specification-Title: twitter4j-core
+Specification-Version: 2.2.0-SNAPSHOT
+Implementation-Title: twitter4j-core
+Implementation-Version: 2.2.0-SNAPSHOT
+Implementation-Vendor-Id: org.twitter4j
+Bundle-Vendor: Yusuke Yamamoto
+Main-Class: twitter4j.Version
+
