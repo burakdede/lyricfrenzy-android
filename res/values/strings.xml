@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="captionText">Type song,artist or lyrics</string>
+    <string name="app_name">Lyric Frenzy</string>
+    <string name="warn_empty_search">Do not use LyricFrenzy with empty search...</string>
+    <string name="spinner_title">Select search type</string>
+    <string name="translate_spinner">Translate To </string>
+    <string name="country_spinner">Select Country</string>
+    
+    <string-array name="searchArray">
+    	<item>Song</item>
+    	<item>Artist</item>
+    	<item>Lyrics</item>
+    </string-array>
+    
+   <string-array name="translateArray">
+    	<item> English </item>
+    	<item> Turkish </item>
+    	<item> French </item>
+    	<item> German </item>
+    	<item> Italian </item>
+    </string-array>
+    
+    <string-array name="countryArray">
+    	<item> Great Britian </item>
+    	<item> Italy </item>
+    	<item> France </item>
+    	<item> Netherland </item>
+    	<item> Spain </item>
+    	<item> Germany </item>
+    	<item> USA </item>
+    </string-array>
+    
+</resources>
