@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:myapp="http://schemas.android.com/apk/com.lyricsfrenzy.android"
+  xmlns:app="http://schemas.android.com/apk/res/com.lyricsfrenzy.android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+  android:layout_height="fill_parent"
+  android:background="#ffffff">
 
+ <com.markupartist.android.widget.ActionBar
+	    android:id="@+id/actionbar"
+	    app:title="Lyric Frenzy | Search Results"
+	    style="@style/ActionBar"/>
 		
   <ListView
 		android:id="@android:id/list"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"/>
-		
-
- 	<com.admob.android.ads.AdView
-		android:id="@+id/ad"
-		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		myapp:backgroundColor="#000000"
-		myapp:primaryTextColor="#FFFFFF"
-		myapp:secondaryTextColor="#CCCCCC"
-		/>
+		android:scrollbars="vertical"
+    	android:fadingEdgeLength="0dip"
+		android:drawSelectorOnTop="true"/>
 		
 </LinearLayout>

@@ -6,19 +6,19 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name">
        
         <activity android:name=".SearchActivity" android:windowSoftInputMode="adjustPan"
-                  android:label="Lyric Frenzy" android:screenOrientation="portrait">
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-		<activity android:name=".ShowResultListActivity" android:label="Lyric Frenzy / Search Result" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
+		<activity android:name=".ShowResultListActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
 		</activity>
 		<activity android:name=".ArtistInfoActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
 		</activity>
 		
-		<activity android:name=".LyricViewActivity" android:label="Lyric Frenzy / Song Lyric" android:launchMode="singleInstance" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
+		<activity android:name=".LyricViewActivity" android:launchMode="singleInstance" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
             <intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
@@ -26,20 +26,6 @@
 				<data android:scheme="T4JOAuth" android:host="main" />
 			</intent-filter>
 		</activity>
-		
-		<!-- The application's publisher ID assigned by AdMob -->
-		<meta-data android:value="a14d77e665ce320" android:name="ADMOB_PUBLISHER_ID" />
-		<!-- AdMobActivity definition -->
-		<activity android:name="com.admob.android.ads.AdMobActivity"
-		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-		android:configChanges="orientation|keyboard|keyboardHidden" />
-		<!-- Track Market installs -->
-		<receiver android:name="com.admob.android.ads.analytics.InstallReceiver"
-		android:exported="true">
-		<intent-filter>
-		<action android:name="com.android.vending.INSTALL_REFERRER" />
-		</intent-filter>
-		</receiver>
 	
     </application>
     

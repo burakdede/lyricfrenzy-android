@@ -1,12 +1,6 @@
 package com.lyricsfrenzy.android;
 
-import java.util.List;
-
-import twitter4j.Status;
 import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import android.app.Activity;
 import android.app.Dialog;
@@ -19,12 +13,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableString;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -35,9 +26,10 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lyricsfrenzy.android.utilities.MusixMatchData;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class LyricViewActivity extends Activity{
 
@@ -70,18 +62,21 @@ public class LyricViewActivity extends Activity{
 	
 	private final static String LYRIC_FRENZY = "Lyric Frenzy";	
 	private ProgressDialog loadingDialog;
+	private static ActionBar actionBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.lyric);
-	
+		setUpActionBar(actionBar);
+		
 		lyricView = (WebView) this.findViewById(R.id.lyricview);
 		
 		//Log.d(LYRIC_FRENZY, MusixMatchData.tempLyric.getLyric_body());
-		lyricView.loadData("<font color='white'>"+Html.toHtml(new SpannableString( MusixMatchData.tempLyric.getLyric_body()))+"</font>", "text/html", "utf-8");
+		lyricView.loadData("<font color='black'>"+Html.toHtml(new SpannableString( MusixMatchData.tempLyric.getLyric_body()))+"</font>", "text/html", "utf-8");
 		
 		lyricView.getSettings().setJavaScriptEnabled(true);
 		lyricView.getSettings().setSupportZoom(true);
@@ -107,25 +102,29 @@ public class LyricViewActivity extends Activity{
 			}else{
 				albumImg.setImageResource(R.drawable.noimage);
 			}
-		
-		videoGalery = (Gallery) findViewById(R.id.ytubeVideo);
-		
+			
+		if(SearchActivity.videoResults){
+			
+			videoGalery = (Gallery) findViewById(R.id.ytubeVideo);
+			
 			if(MusixMatchData.actualImages.size()!=0){
 				videoGalery.setAdapter(new ImageAdapter(this));
 			}else{
 				videoGalery.setBackgroundResource(R.drawable.novideo);
 			}
 		
-		videoGalery.setOnItemClickListener(new OnItemClickListener() {
+			videoGalery.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+						long arg3) {
+					// TODO Auto-generated method stub
 				
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(MusixMatchData.playerList.get((int) arg3))));
-			}
-		});
+					startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(MusixMatchData.playerList.get((int) arg3))));
+				}
+			});
+		}
+		
 		
 		translateButton = (Spinner) findViewById(R.id.translate);
 		ArrayAdapter spinAdapter = ArrayAdapter.createFromResource(this, R.array.translateArray, android.R.layout.simple_spinner_item);
@@ -172,115 +171,28 @@ public class LyricViewActivity extends Activity{
 			}
 
 			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void onNothingSelected(AdapterView<?> arg0) {}
 		});
 		
 	}
+	
+    public void setUpActionBar(ActionBar actionBar){
+    	
+    	//set actionbar intents and activities accordingly
+        actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setHomeAction(new IntentAction(this, createIntent(this),R.drawable.home));
+        actionBar.setTitle(ShowResultListActivity.data.getArtist_name()+" - "+ShowResultListActivity.data.getTrack_name());
+    }
+    
+    public static Intent createIntent(Context context) {
 
-	public void OAuthLogin(){
-		
-		try {
-			
-			twitter = new TwitterFactory().getInstance();
-			twitter.setOAuthConsumer(consumerKey, consumerSecret);
-			requestToken = twitter.getOAuthRequestToken(CALLBACKURL);
-			String authUrl = requestToken.getAuthenticationURL();
-			this.startActivity(new Intent(Intent.ACTION_VIEW, Uri
-					.parse(authUrl)));
-			
-		} catch (TwitterException ex) {
-			Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-			Log.e("in Main.OAuthLogin", ex.getMessage());
-		}	
-	}
-	
-	
-	
-	/*
-	 * - Called when WebView calls your activity back.(This happens when the user has finished signing in)
-	 * - Extracts the verifier from the URI received
-	 * - Extracts the token and secret from the URL 
-	 */
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		Uri uri = intent.getData();
-		try {
-			String verifier = uri.getQueryParameter("oauth_verifier");
-			AccessToken accessToken = twitter.getOAuthAccessToken(requestToken,
-					verifier);
-			String token = accessToken.getToken(), secret = accessToken
-					.getTokenSecret();
-			displayTimeLine(token, secret); //after everything, display the first tweet 
-
-		} catch (TwitterException ex) {
-			Log.e("Main.onNewIntent", "" + ex.getMessage());
-		}
-
-	}
-	
-	
-	
-	/*
-	 * Displays the timeline's first tweet in a Toast
-	 */
-	
-	void displayTimeLine(String token, String secret) {
-		if (null != token && null != secret) {
-			List<Status> listStatus;
-			try {
-				AccessToken accessToken = new AccessToken(token, secret);
-				twitter.setOAuthAccessToken(accessToken);
-				Status status = twitter.updateStatus("@lyricfrenzy I've found "+ShowResultListActivity.data.getTrack_name()+" by "+ShowResultListActivity.data.getArtist_name()+
-						" with #lyricfrenzy");
-				listStatus = twitter.getFriendsTimeline();
-				Toast.makeText(this,"Updated your status to "+"\""+listStatus.get(0).getText()+"\"", Toast.LENGTH_LONG)
-					.show();
-			} catch (Exception ex) {
-				Toast.makeText(this, "Error:" + ex.getMessage(),
-						Toast.LENGTH_LONG).show();
-				Log.d("Main.displayTimeline",""+ex.getMessage());
-			}
-			
-		} else {
-			Toast.makeText(this, "Not Verified", Toast.LENGTH_LONG).show();
-		}
-	}
-	
-	
-	/*
-	 * make menu for user operations
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.lyric_menu, menu);
-	    return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		switch (item.getItemId()) {
-		
-		case R.id.tweet:
-			OAuthLogin();
-			break;
-		default:
-			break;
-			
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
+    	Intent i = new Intent(context, SearchActivity.class);
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
+    }
 	
     @Override
     protected Dialog onCreateDialog(int id) {
-    	// TODO Auto-generated method stub
 		loadingDialog = ProgressDialog.show(LyricViewActivity.this, "", "Translating lyrics...",true);
 		loadingDialog.setCancelable(true);
 		
@@ -293,21 +205,18 @@ public class LyricViewActivity extends Activity{
 		
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			super.onPreExecute();
 			showDialog(1);
 		}
 		
 		@Override
 		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
 			translation = MusixMatchData.translateLyrics(MusixMatchData.tempLyric.getLyric_body(), langNow, langTo);
 			return null;
 		}
 		
 		@Override
 		protected void onPostExecute(String result) {
-			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			lyricView.loadData("<font color='white'>"+Html.toHtml(new SpannableString(translation))+"</font>", "text/html", "utf-8");
 			loadingDialog.dismiss();
@@ -323,7 +232,6 @@ public class LyricViewActivity extends Activity{
 	
 		
 		public ImageAdapter(Context c) {
-			// TODO Auto-generated constructor stub
 			this.context = c;
 
 			TypedArray a = obtainStyledAttributes(R.styleable.galeryTheme);
@@ -335,25 +243,21 @@ public class LyricViewActivity extends Activity{
 		
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return MusixMatchData.actualImages.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
-			// TODO Auto-generated method stub
 			return position;
 		}
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return position;
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
 			
 			 ImageView imageView = new ImageView(context);
 	         imageView.setImageBitmap(MusixMatchData.actualImages.get(position));

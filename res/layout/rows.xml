@@ -3,13 +3,14 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
-  android:background="@drawable/list_back">
+  android:background="#ffffff">
   
   <ImageView
   	android:id="@+id/bullet"
   	android:layout_width="wrap_content"
   	android:layout_height="fill_parent"
   	android:paddingTop="2dip"
+  	android:paddingLeft="5dip"
   	android:src="@drawable/song"/>
   	
   <TextView	
@@ -17,9 +18,10 @@
   	android:layout_toRightOf="@+id/bullet"
   	android:layout_height="wrap_content"
   	android:layout_width="wrap_content"
-  	android:paddingLeft="10dip"
-  	android:paddingRight="10dip"
-  	android:paddingTop="20dip"
-  	android:textSize="14.2sp"/>
+  	android:layout_alignTop="@+id/bullet"
+  	android:paddingLeft="8dip"
+  	android:textColor="#000000"
+  	android:textStyle="bold"
+  	android:textSize="15sp"/>
   
 </RelativeLayout>

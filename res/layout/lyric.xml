@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:myapp="http://schemas.android.com/apk/com.lyricsfrenzy.android"
+xmlns:app="http://schemas.android.com/apk/com.lyricsfrenzy.android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/back">
+    android:background="#ffffff">
 	
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/com.lyricsfrenzy.android"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
+	
+	 <com.markupartist.android.widget.ActionBar
+	    android:id="@+id/actionbar"
+	    app:title="Lyric Frenzy | Song Lyric"
+	    style="@style/ActionBar"/>
 		
 	  <ImageView
 	  	android:id="@+id/albumImage"
 	  	android:layout_height="wrap_content"
 	  	android:layout_width="wrap_content"
+	  	android:layout_below="@+id/actionbar"
 	  	android:minHeight="120dip"
-	  	android:padding="5dip"
-	  	/>
+	  	android:padding="5dip"/>
 	  	
 	  	
 	  <TextView
 	  	android:id="@+id/trackInfo"
 	  	android:layout_toRightOf="@+id/albumImage"
+	  	android:layout_below="@+id/actionbar"
 	  	android:layout_height="wrap_content"
 	  	android:layout_width="wrap_content"
 	  	android:textStyle="bold"
+	  	android:textColor="#000000"
 	  	android:paddingLeft="20dip"
 	  	android:paddingRight="15dip"
 	  	android:paddingTop="5dip"
@@ -48,8 +56,7 @@ xmlns:myapp="http://schemas.android.com/apk/com.lyricsfrenzy.android"
 	  		android:layout_above="@+id/lyricview"
 	  		android:layout_toRightOf="@+id/albumImage"
 	  		android:paddingLeft="20dip"
-	  		android:gravity="center_horizontal"
-	  		>
+	  		android:gravity="center_horizontal">
 	  		
 	  		<TableRow>
 	  			<ImageView
@@ -64,6 +71,7 @@ xmlns:myapp="http://schemas.android.com/apk/com.lyricsfrenzy.android"
 	  				android:layout_width="wrap_content"
 	  				android:padding="5dip"
 	  				android:textStyle="bold"
+	  				android:textColor="#000000"
 	  				android:layout_height="wrap_content"/>
 	  				
 	  			<ImageView
@@ -78,6 +86,7 @@ xmlns:myapp="http://schemas.android.com/apk/com.lyricsfrenzy.android"
 	  				android:layout_width="wrap_content"
 	  				android:padding="5dip"
 	  				android:textStyle="bold"
+	  				android:textColor="#000000"
 	  				android:layout_height="wrap_content"/>
 	  					  			
 	  		</TableRow>
@@ -87,7 +96,7 @@ xmlns:myapp="http://schemas.android.com/apk/com.lyricsfrenzy.android"
 					android:padding="5dip"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_span="3"
+					android:layout_span="4"
 					android:prompt="@string/translate_spinner"
 					android:drawSelectorOnTop="false"
 					/>
@@ -110,6 +119,7 @@ xmlns:myapp="http://schemas.android.com/apk/com.lyricsfrenzy.android"
 	 	android:layout_height="wrap_content"
 	 	android:layout_width="wrap_content"
 	 	android:layout_below="@+id/lyricview"
+	 	android:textColor="#000000"
 	 	android:text="YouTube Videos"
 	 	android:textStyle="bold"
 	 	/>
@@ -120,15 +130,5 @@ xmlns:myapp="http://schemas.android.com/apk/com.lyricsfrenzy.android"
 	 	android:layout_width="fill_parent"
 	 	android:layout_height="wrap_content"
 	 	/>
-	 	
-	 <com.admob.android.ads.AdView
-		android:id="@+id/ad"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/ytubeVideo"
-		myapp:backgroundColor="#000000"
-		myapp:primaryTextColor="#FFFFFF"
-		myapp:secondaryTextColor="#CCCCCC"
-		/>
 </RelativeLayout>
 </ScrollView>
