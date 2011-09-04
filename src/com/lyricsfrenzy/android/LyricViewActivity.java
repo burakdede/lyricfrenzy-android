@@ -1,7 +1,9 @@
 package com.lyricsfrenzy.android;
 
-import twitter4j.Twitter;
-import twitter4j.auth.RequestToken;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -11,6 +13,7 @@ import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Html;
 import android.text.SpannableString;
 import android.view.View;
@@ -26,9 +29,11 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lyricsfrenzy.android.utilities.MusixMatchData;
 import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class LyricViewActivity extends Activity{
@@ -39,19 +44,6 @@ public class LyricViewActivity extends Activity{
 	private Gallery videoGalery;
 	private Spinner translateButton;
 	private boolean check = false;
-	
-	/*
-	 * twitter integration for sharing and authentication
-	 */
-	RequestToken requestToken;
-	public final static String consumerKey = "qAAGJN5BWr7Gj0n27ukl6w"; // "your key here";
-	public final static String consumerSecret = "nSQgqTQwrd1N5MNMvbHbveiN25PuEF6owf85l0pa28"; // "your secret key here";
-	private final String CALLBACKURL = "T4JOAuth://main";  //Callback URL that tells the WebView to load this activity when it finishes with twitter.com. (see manifest)
-	Twitter twitter;
-	/*
-	 * end of the twitter integration
-	 */
-	
 	
 	private String langTo;
 	private String langNow = "en";
@@ -92,9 +84,7 @@ public class LyricViewActivity extends Activity{
 		
 		trackInfo = (TextView) this.findViewById(R.id.trackInfo);
 		trackInfo.setText(ShowResultListActivity.data.getArtist_name()+" - "+ShowResultListActivity.data.getTrack_name());
-		
-		
-		
+
 		albumImg = (ImageView) this.findViewById(R.id.albumImage);
 		
 			if(MusixMatchData.bmImg != null){
@@ -176,12 +166,35 @@ public class LyricViewActivity extends Activity{
 		
 	}
 	
+	public void generateNoteOnSD(String sFileName, String sBody){
+		
+		
+	    try{
+	        File root = new File(Environment.getExternalStorageDirectory(), "LyricFrenzy");
+	        if (!root.exists()) {
+	            root.mkdirs();
+	        }
+	        File gpxfile = new File(root, sFileName);
+	        FileWriter writer = new FileWriter(gpxfile);
+	        writer.append(sBody);
+	        writer.flush();
+	        writer.close();
+	        Toast.makeText(this, "Saved lyric successfully to SD card.", Toast.LENGTH_SHORT).show();
+	    }
+	    catch(IOException e){
+	         e.printStackTrace();
+	    }
+	}
+	
+	
     public void setUpActionBar(ActionBar actionBar){
     	
     	//set actionbar intents and activities accordingly
         actionBar = (ActionBar) findViewById(R.id.actionbar);
         actionBar.setHomeAction(new IntentAction(this, createIntent(this),R.drawable.home));
         actionBar.setTitle(ShowResultListActivity.data.getArtist_name()+" - "+ShowResultListActivity.data.getTrack_name());
+        
+        actionBar.addAction(new WriteSDCardAction());
     }
     
     public static Intent createIntent(Context context) {
@@ -189,6 +202,24 @@ public class LyricViewActivity extends Activity{
     	Intent i = new Intent(context, SearchActivity.class);
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return i;
+    }
+    
+    private class WriteSDCardAction implements Action{
+
+		@Override
+		public int getDrawable() {
+			return R.drawable.database_server;
+		}
+
+		@Override
+		public void performAction(View view) {
+			if(Environment.getExternalStorageState() != null){
+				generateNoteOnSD(ShowResultListActivity.data.getArtist_name()+" - "+ShowResultListActivity.data.getTrack_name()
+					,MusixMatchData.tempLyric.getLyric_body());
+			}else{
+				Toast.makeText(getApplicationContext(), "Can not write SD card not mounted", Toast.LENGTH_LONG);
+			}
+		}
     }
 	
     @Override
