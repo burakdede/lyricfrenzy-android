@@ -204,11 +204,15 @@ public class LyricViewActivity extends Activity{
         return i;
     }
     
+    /*
+     * write lyric as a text file to
+     * user sd card
+     */
     private class WriteSDCardAction implements Action{
 
 		@Override
 		public int getDrawable() {
-			return R.drawable.database_server;
+			return R.drawable.download;
 		}
 
 		@Override

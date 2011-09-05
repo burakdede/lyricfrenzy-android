@@ -80,10 +80,8 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				//check to see if editext is empty or not
 				if(searchBar.getText().toString().length() != 0){
-					
 					Log.d(LYRIC_FRENZY, "Edit text is not empty calling another activity");
 					//call another activity
 					MusixMatchData.searchData.clear();
@@ -153,9 +151,12 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 	        
 	        if(activities.size()!=0){
 	        	startVoiceRecognitionActivity();
+	        }else{
+	        	Toast.makeText(getApplicationContext(), "Seems like you dont have TextToSpeech recognizer",
+	        			Toast.LENGTH_LONG).show();
 	        }
-	        
 		}
+		
 
 		@Override
 		public void onInit(int status) {
@@ -169,7 +170,7 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 	            if (result == TextToSpeech.LANG_MISSING_DATA ||
 	                result == TextToSpeech.LANG_NOT_SUPPORTED) {
 	               // Lanuage data is missing or the language is not supported.
-	                Log.e("SCORODROID", "Language is not available.");
+	                Log.e(LYRIC_FRENZY, "Language is not available.");
 	            } else {
 	                // Check the documentation for other possible result codes.
 	                // For example, the language may be available for the locale,
@@ -178,7 +179,7 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 	                // The TTS engine has been successfully initialized.
 	                // Allow the user to press the button for the app to speak again.
 	                // Greet the user.
-	            	Log.e("SCORODROID", "Language is available.");
+	            	Log.e(LYRIC_FRENZY, "Language is available.");
 	            }
 	        } else {
 	            // Initialization failed.
@@ -197,8 +198,6 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 
     @Override
     protected Dialog onCreateDialog(int id) {
-    	// TODO Auto-generated method stub
-
 		loadingDialog = ProgressDialog.show(SearchActivity.this, "LyricFrenzy", "Getting search result. Please wait.",true);
     	loadingDialog.setCancelable(true);
     	
@@ -209,7 +208,6 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 
     	@Override
     	protected void onPreExecute() {
-    		// TODO Auto-generated method stub
     		super.onPreExecute();
     		showDialog(1);
     	}
@@ -225,7 +223,6 @@ public class SearchActivity extends Activity implements OnItemClickListener {
     	
 		@Override
 		protected void onPostExecute(String result) {
-			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			loadingDialog.dismiss();
 			
@@ -259,7 +256,6 @@ public class SearchActivity extends Activity implements OnItemClickListener {
     
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
 		String selection = (String) mList.getAdapter().getItem((int)arg3);
 
 		searchBar.setText(selection);
