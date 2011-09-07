@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.lyricsfrenzy.android"
-      android:versionCode="6"
-      android:versionName="1.2">
+      package="com.lyricsfrenzylite.android"
+      android:versionCode="7"
+      android:versionName="1.3">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
        
-        <activity android:name=".SearchActivity" android:windowSoftInputMode="adjustPan"
+        <activity android:name="com.lyricsfrenzylite.android.SearchActivity" android:windowSoftInputMode="adjustPan"
                   android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -13,12 +13,12 @@
             </intent-filter>
         </activity>
 
-		<activity android:name=".ShowResultListActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
+		<activity android:name="com.lyricsfrenzylite.android.ShowResultListActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
 		</activity>
-		<activity android:name=".ArtistInfoActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
+		<activity android:name="com.lyricsfrenzylite.android.ArtistInfoActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
 		</activity>
 		
-		<activity android:name=".LyricViewActivity" android:launchMode="singleInstance" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
+		<activity android:name="com.lyricsfrenzylite.android.LyricViewActivity" android:launchMode="singleInstance" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
             <intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
@@ -33,6 +33,6 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
     
-    <uses-sdk android:minSdkVersion="3" />
+    <uses-sdk android:minSdkVersion="7" />
 
 </manifest> 
