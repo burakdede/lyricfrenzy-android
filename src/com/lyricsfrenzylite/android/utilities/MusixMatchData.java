@@ -27,7 +27,8 @@ public class MusixMatchData {
 	
 	private final static String LYRIC_FRENZY = "Lyric Frenzy";
 
-	private final static String API_KEY = "d0f4f58572e24885311f6ab8b7ab62ce";
+	//private final static String API_KEY = "d0f4f58572e24885311f6ab8b7ab62ce";
+	private final static String API_KEY = "c1951c27717c99b7add9b2028e6c09b6";
 	private final static String API_KEY_LASTFM = "49f6b21cab1c48100ee59f216645275e";
 	private final static String API_KEY_GOOGLE = "AIzaSyBdozoMO9b-mxGAorOApLGD6c_D7ZBBfnI";
 	
